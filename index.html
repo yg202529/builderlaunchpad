@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f5f7">
+<title>BUILDER LAUNCHPAD</title>
+<style>
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  color: #1d1d1f;
+  background: #f5f5f7;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+* { box-sizing: border-box; }
+body { margin: 0; }
+
+.lang-toggle {
+  position: fixed;
+  top: 18px;
+  right: 22px;
+  z-index: 10;
+  padding: 9px 14px;
+  border: 1px solid #d2d2d7;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(12px);
+  color: #1d1d1f;
+  font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+  box-shadow: 0 2px 8px #0000000c;
+}
+.lang-toggle:hover { background: #fff; border-color: #b8d8fa; }
+.lang-toggle:focus-visible { outline: 3px solid #0071e3; outline-offset: 2px; }
+
+.wrap {
+  width: min(1120px, calc(100% - 40px));
+  margin: auto;
+  padding: 64px 0 80px;
+}
+.hero { text-align: center; margin-bottom: 48px; }
+.eyebrow {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #0071e3;
+}
+.hero h1 {
+  font-size: clamp(36px, 6vw, 58px);
+  letter-spacing: -.055em;
+  line-height: 1.05;
+  margin: 14px 0;
+}
+.hero p {
+  font-size: 17px;
+  color: #6e6e73;
+  margin: 0 auto 28px;
+  max-width: 560px;
+}
+.search {
+  width: min(540px, 100%);
+  height: 54px;
+  padding: 0 18px;
+  border: 1px solid #d2d2d7;
+  border-radius: 14px;
+  background: #fff;
+  font: inherit;
+  font-size: 16px;
+  outline: none;
+  box-shadow: 0 4px 18px #00000008;
+  transition: border-color .2s, box-shadow .2s;
+}
+.search:focus {
+  border-color: #0071e3;
+  box-shadow: 0 0 0 4px #0071e31c;
+}
+.search::placeholder { color: #86868b; }
+
+.section { margin-top: 48px; }
+.section-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 17px;
+}
+.section h2 {
+  font-size: 24px;
+  letter-spacing: -.035em;
+  margin: 0;
+}
+.count { font-size: 13px; color: #86868b; }
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+.card {
+  display: flex;
+  flex-direction: column;
+  min-height: 128px;
+  padding: 20px;
+  background: #fff;
+  border: 1px solid #e8e8ed;
+  border-radius: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 2px 8px #00000005;
+  transition: transform .18s, border-color .18s, box-shadow .18s;
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: #b8d8fa;
+  box-shadow: 0 10px 28px #0000000d;
+}
+.card:focus-visible { outline: 3px solid #0071e3; outline-offset: 2px; }
+.card strong { font-size: 16px; letter-spacing: -.01em; }
+.card span {
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6e6e73;
+  margin-top: 7px;
+}
+.empty {
+  display: none;
+  padding: 34px 20px;
+  text-align: center;
+  color: #6e6e73;
+  background: #fff;
+  border: 1px solid #e8e8ed;
+  border-radius: 16px;
+  margin-top: 24px;
+}
+.footer {
+  text-align: center;
+  font-size: 13px;
+  color: #86868b;
+  margin-top: 54px;
+}
+
+@media (max-width: 760px) {
+  .wrap { width: min(100% - 32px, 600px); padding-top: 58px; }
+  .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+  .card { padding: 17px; min-height: 120px; }
+  .section { margin-top: 38px; }
+}
+@media (max-width: 480px) {
+  .wrap { width: calc(100% - 28px); padding: 52px 0 56px; }
+  .hero { margin-bottom: 38px; }
+  .hero p { font-size: 15px; }
+  .grid { grid-template-columns: 1fr; }
+  .card { min-height: unset; padding: 17px; }
+  .section h2 { font-size: 21px; }
+  .section-head { margin-bottom: 13px; }
+  .lang-toggle { top: 12px; right: 14px; }
+}
+</style>
+</head>
+<body>
+<button class="lang-toggle" id="langToggle" type="button" aria-label="Switch to Chinese">中 / EN</button>
+
+<main class="wrap">
+  <header class="hero">
+    <div class="eyebrow" data-en="Your indie web launch toolkit" data-zh="独立建站出海工具箱">Your indie web launch toolkit</div>
+    <h1>BUILDER LAUNCHPAD</h1>
+    <p data-en="A handpicked collection of tools to research, build, launch, and grow your next website."
+       data-zh="精选建站工具，助你完成调研、上线与增长。">
+      A handpicked collection of tools to research, build, launch, and grow your next website.
+    </p>
+    <input class="search" id="search" type="search"
+      placeholder="Search tools or categories…"
+      aria-label="Search tools"
+      data-placeholder-en="Search tools or categories…"
+      data-placeholder-zh="搜索工具或分类…"
+      autocomplete="off">
+  </header>
+
+  <div id="sections">
+    <section class="section">
+      <div class="section-head">
+        <h2 data-en="Demand &amp; Keyword Research" data-zh="需求与关键词调研">Demand &amp; Keyword Research</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://www.toolify.ai/Best-AI-Tools-revenue" target="_blank" rel="noopener noreferrer">
+          <strong data-en="Toolify Rankings" data-zh="Toolify 榜单">Toolify Rankings</strong>
+          <span data-en="Explore AI tools ranked by revenue." data-zh="查看 AI 工具收入排行。">Explore AI tools ranked by revenue.</span>
+        </a>
+        <a class="card" href="https://theresanaiforthat.com/requests" target="_blank" rel="noopener noreferrer">
+          <strong data-en="There’s An AI For That Requests" data-zh="There’s An AI For That Requests">There’s An AI For That Requests</strong>
+          <span data-en="Browse requests for AI tools people want." data-zh="看看大家正在寻找哪些 AI 工具。">Browse requests for AI tools people want.</span>
+        </a>
+        <a class="card" href="https://ahrefs.com/keyword-difficulty" target="_blank" rel="noopener noreferrer">
+          <strong data-en="Ahrefs Keyword Difficulty" data-zh="Ahrefs Keyword Difficulty">Ahrefs Keyword Difficulty</strong>
+          <span data-en="Gauge how hard it is to rank for a keyword." data-zh="评估关键词的搜索排名难度。">Gauge how hard it is to rank for a keyword.</span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-en="Launch Essentials" data-zh="建站必备">Launch Essentials</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://leandomainsearch.com/" target="_blank" rel="noopener noreferrer"><strong>Lean Domain Search</strong><span data-en="Find available domain name ideas." data-zh="寻找可注册的域名灵感。">Find available domain name ideas.</span></a>
+        <a class="card" href="https://query.domains/" target="_blank" rel="noopener noreferrer"><strong>query.domains</strong><span data-en="Search for your next domain." data-zh="快速查询心仪域名。">Search for your next domain.</span></a>
+        <a class="card" href="https://instantdomainsearch.com/" target="_blank" rel="noopener noreferrer"><strong>Instant Domain Search</strong><span data-en="Check domain availability as you type." data-zh="输入时即时检查域名是否可用。">Check domain availability as you type.</span></a>
+        <a class="card" href="https://www.spaceship.com/" target="_blank" rel="noopener noreferrer"><strong>Spaceship</strong><span data-en="Register and manage domain names." data-zh="注册并管理域名。">Register and manage domain names.</span></a>
+        <a class="card" href="https://porkbun.com/" target="_blank" rel="noopener noreferrer"><strong>Porkbun</strong><span data-en="Register a domain for your project." data-zh="为项目注册合适的域名。">Register a domain for your project.</span></a>
+        <a class="card" href="https://www.namecheap.com/" target="_blank" rel="noopener noreferrer"><strong>Namecheap</strong><span data-en="Register domains and find hosting." data-zh="注册域名并选购主机服务。">Register domains and find hosting.</span></a>
+        <a class="card" href="https://github.com/" target="_blank" rel="noopener noreferrer"><strong>GitHub</strong><span data-en="Host code and collaborate on projects." data-zh="托管代码，与团队协作开发。">Host code and collaborate on projects.</span></a>
+        <a class="card" href="https://www.cloudflare.com/" target="_blank" rel="noopener noreferrer"><strong>Cloudflare</strong><span data-en="Deploy, secure, and host your site." data-zh="部署网站并提升安全与访问速度。">Deploy, secure, and host your site.</span></a>
+        <a class="card" href="https://vercel.com/" target="_blank" rel="noopener noreferrer"><strong>Vercel</strong><span data-en="Deploy your website to the web." data-zh="轻松部署网站并发布上线。">Deploy your website to the web.</span></a>
+        <a class="card" href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer"><strong>ChatGPT</strong><span data-en="Write and debug website code with AI." data-zh="用 AI 编写和调试网站代码。">Write and debug website code with AI.</span></a>
+        <a class="card" href="https://search.google.com/search-console" target="_blank" rel="noopener noreferrer"><strong>Google Search Console</strong><span data-en="Monitor search presence and indexing." data-zh="查看搜索表现与页面收录情况。">Monitor search presence and indexing.</span></a>
+        <a class="card" href="https://analytics.google.com/" target="_blank" rel="noopener noreferrer"><strong>Google Analytics</strong><span data-en="Understand traffic and visitor behavior." data-zh="了解网站流量和访客行为。">Understand traffic and visitor behavior.</span></a>
+        <a class="card" href="https://www.bing.com/webmasters/submiturl" target="_blank" rel="noopener noreferrer"><strong>Bing Webmaster Tools</strong><span data-en="Submit your site and track Bing indexing." data-zh="提交网站并查看必应收录情况。">Submit your site and track Bing indexing.</span></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-en="Competitor Research" data-zh="竞品调研">Competitor Research</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://aitdk.com/" target="_blank" rel="noopener noreferrer"><strong>aitdk</strong><span data-en="Check website traffic and keywords." data-zh="查询网站流量与关键词。">Check website traffic and keywords.</span></a>
+        <a class="card" href="https://ahrefs.com/free-seo-tools" target="_blank" rel="noopener noreferrer"><strong>Ahrefs Free SEO Tools</strong><span data-en="Explore backlinks and SEO insights." data-zh="查看外链并获取 SEO 数据。">Explore backlinks and SEO insights.</span></a>
+        <a class="card" href="https://www.semrush.com/" target="_blank" rel="noopener noreferrer"><strong>Semrush</strong><span data-en="Research keywords and competitors." data-zh="分析关键词和竞争对手。">Research keywords and competitors.</span></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-en="Website Templates" data-zh="建站模板">Website Templates</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://github.com/WebStackPage/WebStackPage.github.io" target="_blank" rel="noopener noreferrer"><strong>WebStackPage</strong><span data-en="An open-source navigation site template." data-zh="开源的网址导航站模板。">An open-source navigation site template.</span></a>
+        <a class="card" href="https://github.com/fre123-com/fre123-nav/" target="_blank" rel="noopener noreferrer"><strong>FRE123 Nav</strong><span data-en="A ready-made navigation template." data-zh="开箱即用的网址导航模板。">A ready-made navigation template.</span></a>
+        <a class="card" href="https://vercel.com/templates" target="_blank" rel="noopener noreferrer"><strong>Vercel Templates</strong><span data-en="Browse projects ready to customize." data-zh="浏览可直接套用和修改的项目模板。">Browse projects ready to customize.</span></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-en="News &amp; Community" data-zh="资讯与社区">News &amp; Community</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://developers.google.com/search/docs/fundamentals/creating-helpful-content" target="_blank" rel="noopener noreferrer"><strong>Google SEO Documentation</strong><span data-en="Learn the basics of helpful, people-first content." data-zh="了解以用户为先的内容创作原则。">Learn the basics of helpful, people-first content.</span></a>
+        <a class="card" href="https://ahrefs.com/websites#trending" target="_blank" rel="noopener noreferrer"><strong>Ahrefs Trending</strong><span data-en="Explore global website traffic trends." data-zh="查看全球网站流量趋势。">Explore global website traffic trends.</span></a>
+        <a class="card" href="https://news.ycombinator.com/" target="_blank" rel="noopener noreferrer"><strong>Hacker News</strong><span data-en="Join the community for independent builders." data-zh="关注独立开发者社区的讨论。">Join the community for independent builders.</span></a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2 data-en="Game Assets" data-zh="游戏素材">Game Assets</h2>
+        <span class="count"></span>
+      </div>
+      <div class="grid">
+        <a class="card" href="https://www.onlinegames.io/" target="_blank" rel="noopener noreferrer"><strong>onlinegames.io</strong><span data-en="Find free browser games to embed in an iframe." data-zh="寻找可通过 iframe 嵌入的免费网页游戏。">Find free browser games to embed in an iframe.</span></a>
+      </div>
+    </section>
+  </div>
+
+  <p class="empty" id="empty"
+     data-en="No tools found. Try another search."
+     data-zh="没有找到相关工具，试试其他关键词。">No tools found. Try another search.</p>
+  <footer class="footer"
+    data-en="A little head start for your next big idea."
+    data-zh="为你的下一个好点子，先备好工具。">A little head start for your next big idea.</footer>
+</main>
+
+<script>
+const input = document.getElementById("search");
+const sections = [...document.querySelectorAll(".section")];
+const empty = document.getElementById("empty");
+const toggle = document.getElementById("langToggle");
+let language = "en";
+
+function applyLanguage() {
+  document.documentElement.lang = language === "zh" ? "zh-CN" : "en";
+
+  document.querySelectorAll("[data-en][data-zh]").forEach((element) => {
+    element.textContent = element.dataset[language];
+  });
+
+  input.placeholder = language === "zh" ? input.dataset.placeholderZh : input.dataset.placeholderEn;
+  input.setAttribute("aria-label", language === "zh" ? "搜索工具" : "Search tools");
+  toggle.setAttribute("aria-label", language === "zh" ? "切换到英文" : "Switch to Chinese");
+
+  filterTools();
+}
+
+function filterTools() {
+  const query = input.value.trim().toLocaleLowerCase();
+  let visibleCount = 0;
+
+  sections.forEach((section) => {
+    const heading = section.querySelector("h2").textContent;
+    const cards = [...section.querySelectorAll(".card")];
+    let sectionCount = 0;
+
+    cards.forEach((card) => {
+      const searchableText = `${heading} ${card.innerText}`.toLocaleLowerCase();
+      const matches = !query || searchableText.includes(query);
+      card.hidden = !matches;
+      if (matches) sectionCount++;
+    });
+
+    section.hidden = sectionCount === 0;
+    const countLabel = language === "zh"
+      ? `${sectionCount} 个工具`
+      : `${sectionCount} ${sectionCount === 1 ? "tool" : "tools"}`;
+    section.querySelector(".count").textContent = countLabel;
+    visibleCount += sectionCount;
+  });
+
+  empty.style.display = visibleCount ? "none" : "block";
+}
+
+input.addEventListener("input", filterTools);
+toggle.addEventListener("click", () => {
+  language = language === "en" ? "zh" : "en";
+  applyLanguage();
+});
+
+applyLanguage();
+</script>
+</body>
+</html>
